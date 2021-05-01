@@ -6,11 +6,18 @@ import { Button } from "@material-ui/core";
 import ConfDialogue from "./ConfDialogue";
 import { LogBorrowedBookData, updateBookCopiesInDBBulk } from "./DatabaseFns";
 import ModalMessage from "./ModalMessage";
+//modal related imports starts
+// import { makeStyles } from "@material-ui/core/styles";
+// import Modal from "@material-ui/core/Modal";
+//modal related imports ends
 
 function ViewCart() {
   const [{ user, basket }, dispatch] = useStateValue();
+
+  const [numBookCopies, setNumBookCopies] = useState(0);
   const [modalMsg, setModalMsg] = useState("Hulo");
   const [modalOpen, setModalOpen] = useState(false);
+
   // DIALOGUE OPERATION VARIABLES AND FUNCTIONS STARTS
   const [openDialogue, setOpenDialogue] = useState(false);
   const [dialogMsg, setDialogMsg] = useState("Are you Sure?");
@@ -74,6 +81,7 @@ function ViewCart() {
     if (booksTemp[x.id]) booksTemp[x.id] += 1;
     else booksTemp[x.id] = 1;
   });
+
   return (
     <div>
       <Homepage />
@@ -84,11 +92,19 @@ function ViewCart() {
         handleDenial={handleDenial}
         msg={dialogMsg}
       />
-      {/* <ModalMessage
+      <ModalMessage
         modalOpen={modalOpen}
         closeModalFn={closeModalFn}
         bodyContent={modalMsg}
-      /> */}
+      />
+      {/* <Modal
+        open={modalOpen}
+        onClose={closeModalFn}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {body}
+      </Modal> */}
       {basket.length == 0 ? <h1>Your Cart is Empty</h1> : null}
       <div>
         {basket.map((x) => {
