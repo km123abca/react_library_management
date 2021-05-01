@@ -6,10 +6,6 @@ import { Button } from "@material-ui/core";
 import ConfDialogue from "./ConfDialogue";
 import { LogBorrowedBookData, updateBookCopiesInDBBulk } from "./DatabaseFns";
 import ModalMessage from "./ModalMessage";
-//modal related imports starts
-// import { makeStyles } from "@material-ui/core/styles";
-// import Modal from "@material-ui/core/Modal";
-//modal related imports ends
 
 function ViewCart() {
   const [{ user, basket }, dispatch] = useStateValue();
@@ -51,7 +47,6 @@ function ViewCart() {
     setOpenDialogue(true);
   };
   const StuffToDoOnceAccepted = () => {
-    /*
     let recordToStore = {};
     let books = [];
     let taken = {},
@@ -67,11 +62,11 @@ function ViewCart() {
       }
       taken[x.id] = true;
     });
-    recordToStore = { user: user.email, books: books };
+    recordToStore = { user: user.email, books: books, returnedAll: false };
     LogBorrowedBookData(recordToStore);
     updateBookCopiesInDBBulk(updatedBooks);
     dispatch({ type: "CLEAR_BASKET" });
-    */
+
     setModalMsg("Data stored successfully");
     setModalOpen(true);
     // alert("Data Stored successfully");

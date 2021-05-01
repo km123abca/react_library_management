@@ -11,6 +11,8 @@ import {
 } from "@material-ui/core";
 import Homepage from "./Homepage";
 import { makeStyles } from "@material-ui/core/styles";
+import { AddNewMemberDetails } from "./DatabaseFns";
+import ModalMessage from "./ModalMessage";
 
 const useStyles = makeStyles((theme) => ({
   // container: {
@@ -30,24 +32,52 @@ function Register() {
   const [email, setEmail] = useState("");
   const [pword, setPword] = useState("");
   const [pword2, setPword2] = useState("");
+  const [idnum, setIdnum] = useState("");
 
+  //MODAL CONTROL FUNCTIONS STARTS
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const openModalFn = () => {
+    setModalOpen(true);
+  };
+  const closeModalFn = () => {
+    setModalOpen(false);
+  };
+  //MODAL CONTROL FUNCTIONS ENDS
   const register = (e) => {
     e.preventDefault();
-    if (pword != pword2) alert("passwords dont match");
-    else {
+    if (pword != pword2) {
+      setModalMsg("passwords dont match");
+      setModalOpen(true);
+    } else if (!("" + idnum).match(/^[0-9]+-[0-9]+-[0-9]+-[0-9]+$/)) {
+      setModalMsg(
+        "Your ID number is not valid it should be like 1234-3433-4444-5432"
+      );
+      setModalOpen(true);
+    } else {
       auth
         .createUserWithEmailAndPassword(email, pword)
         .then((auth) => {
+          AddNewMemberDetails({ email, idnum });
           history.push("/fe");
         })
-        .catch((e) => alert(e.message));
+        .catch((e) => {
+          setModalMsg(e.message);
+          setModalOpen(true);
+        });
     }
-    setEmail("");
-    setPword("");
-    setPword2("");
+
+    // setEmail("");
+    // setPword("");
+    // setPword2("");
   };
   return (
     <div>
+      <ModalMessage
+        modalOpen={modalOpen}
+        closeModalFn={closeModalFn}
+        bodyContent={modalMsg}
+      />
       <Homepage />
       <div>
         <form>
@@ -56,6 +86,12 @@ function Register() {
               <FormControl>
                 {/* <InputLabel>Email</InputLabel> */}
                 <TextField
+                  inputProps={{
+                    autocomplete: "new-password",
+                    form: {
+                      autocomplete: "off",
+                    },
+                  }}
                   className={classes.textField}
                   value={email}
                   type="email"
@@ -94,10 +130,24 @@ function Register() {
                 />
               </FormControl>
             </div>
+            <div className="col-12" style={{ marginBottom: "20px" }}>
+              <FormControl>
+                {/* <InputLabel>Password</InputLabel> */}
+                <TextField
+                  className={classes.textField}
+                  value={idnum}
+                  type="text"
+                  placeholder="Your Govt ID Number"
+                  onChange={(event) => {
+                    setIdnum(event.target.value);
+                  }}
+                />
+              </FormControl>
+            </div>
             <div className="col-12">
               <Button
                 variant="contained"
-                disabled={!email || !pword}
+                disabled={!email || !pword || !pword2 || !idnum}
                 color="primary"
                 //   type="submit"
                 onClick={register}

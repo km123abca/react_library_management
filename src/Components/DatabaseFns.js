@@ -48,6 +48,22 @@ const RetrieveABook = (setBook, id_received) => {
       // console.log("here:" + JSON.stringify(snapshot.data()));
     });
 };
+const GetBookLenderInfo = (setBookLenderData) => {
+  db.collection("BorrowedBooks")
+    // .where("returnedAll", "==", true)
+    // .orderBy("timestamp", "asc")
+    .onSnapshot((snapshot) => {
+      setBookLenderData(
+        snapshot.docs.map((doc) => {
+          // return JSON.stringify(doc.user);
+          return {
+            books: doc.data().books,
+            user: doc.data().user,
+          };
+        })
+      );
+    });
+};
 const LogInfo = (
   clearAll,
   { bookName, author, bookImage, bookDesc, bookCopies, bookGenre }
@@ -69,6 +85,12 @@ const LogBorrowedBookData = (recordToStore) => {
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   });
 };
+const AddNewMemberDetails = (recordToStore) => {
+  db.collection("MemberInfo").add({
+    ...recordToStore,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+};
 const updateBookCopiesInDB = (bid, n) => {
   db.collection("books").doc(bid).set({ bookCopies: n }, { merge: true });
 };
@@ -78,10 +100,13 @@ const updateBookCopiesInDBBulk = (updatedBooks) => {
     // console.log("bookid:" + x.bid + " updated numcopies:" + x.n);
   });
 };
+
 export {
   RetrieveData,
   RetrieveABook,
   LogInfo,
   LogBorrowedBookData,
   updateBookCopiesInDBBulk,
+  AddNewMemberDetails,
+  GetBookLenderInfo,
 };

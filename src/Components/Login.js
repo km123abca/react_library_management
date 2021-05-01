@@ -65,6 +65,12 @@ function Login() {
               <FormControl>
                 {/* <InputLabel>Password</InputLabel> */}
                 <TextField
+                  inputProps={{
+                    autocomplete: "new-password",
+                    form: {
+                      autocomplete: "off",
+                    },
+                  }}
                   className={classes.textField}
                   value={pword}
                   type="password"

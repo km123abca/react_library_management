@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import Logout from "./Components/Logout";
 import ViewCart from "./Components/ViewCart";
 import AddNewBook from "./Components/AddNewBook";
+import BookBorrower from "./Components/BookBorrower";
 function App() {
   const [{ user }, dispatch] = useStateValue();
   useEffect(() => {
@@ -64,6 +65,9 @@ function App() {
           </Route>
           <Route exact path="/fe/add">
             <AddNewBook />
+          </Route>
+          <Route exact path="/fe/bor">
+            <BookBorrower />
           </Route>
           <Route exact path="/fe/matDemo">
             <MaterialDemo />
