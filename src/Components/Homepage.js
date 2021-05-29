@@ -24,7 +24,7 @@ function Homepage() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#" className="text-white">
+            <Navbar.Text className="text-white">
               <Link
                 to="/fe/"
                 style={{ textDecoration: "none", color: "white" }}
@@ -32,16 +32,20 @@ function Homepage() {
                 {" "}
                 Home
               </Link>
-            </Nav.Link>
-            <Nav.Link href="#link" className="text-white">
+            </Navbar.Text>
+            <Navbar.Text className="text-white">
               <Link
                 to="/fe/all"
-                style={{ textDecoration: "none", color: "white" }}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  marginLeft: "10px",
+                }}
               >
                 {" "}
                 Books
               </Link>
-            </Nav.Link>
+            </Navbar.Text>
             <NavDropdown
               title={<span className="text-white my-auto">User</span>}
               id="basic-nav-dropdown"
@@ -53,6 +57,24 @@ function Homepage() {
                 >
                   {" "}
                   {user ? "Logout" : "Login"}
+                </Link>
+              </NavDropdown.Item>
+              {
+                <NavDropdown.Item className="text-dark">
+                  <Link
+                    to={user ? "/fe/return" : "/fe/login"}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    Return Books
+                  </Link>
+                </NavDropdown.Item>
+              }
+              <NavDropdown.Item className="text-dark">
+                <Link
+                  to={user ? "/fe/approvereturn" : "/fe/login"}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Approve Returns
                 </Link>
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2" className="text-dark">

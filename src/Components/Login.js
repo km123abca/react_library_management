@@ -34,7 +34,7 @@ function Login() {
     auth
       .signInWithEmailAndPassword(email, pword)
       .then((auth) => {
-        history.push("/fe");
+        history.push("/fe/all");
       })
       .catch((e) => alert(e.message));
 

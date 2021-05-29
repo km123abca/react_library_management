@@ -7,15 +7,20 @@ import { RetrieveData } from "./DatabaseFns";
 function Allbooks() {
   const [booksAll, setBooksAll] = useState([]);
   const [books, setBooks] = useState([]);
+  const [suscribed, setSuscribed] = useState(true);
+
   useEffect(() => {
-    RetrieveData(setBooks, setBooksAll);
+    if (suscribed) RetrieveData(setBooks, setBooksAll);
+    return () => {
+      setSuscribed(false);
+    };
   }, []);
   return (
     <div>
       <Homepage />
       <div className="container-fluid">
         <div className="row" style={{ marginTop: "10px" }}>
-          {books.map((x) => (
+          {books.map((x, ind) => (
             <Book
               id={x.id}
               author={x.author}
@@ -25,6 +30,7 @@ function Allbooks() {
               bookCopies={x.bookCopies}
               bookGenre={x.bookGenre}
               page={"allbooks"}
+              key={ind}
             />
           ))}
         </div>

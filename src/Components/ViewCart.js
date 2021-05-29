@@ -67,7 +67,7 @@ function ViewCart() {
     updateBookCopiesInDBBulk(updatedBooks);
     dispatch({ type: "CLEAR_BASKET" });
 
-    setModalMsg("Data stored successfully");
+    setModalMsg("Checked out, Please ensure prompt return");
     setModalOpen(true);
     // alert("Data Stored successfully");
   };

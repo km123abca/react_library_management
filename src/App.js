@@ -15,6 +15,9 @@ import Logout from "./Components/Logout";
 import ViewCart from "./Components/ViewCart";
 import AddNewBook from "./Components/AddNewBook";
 import BookBorrower from "./Components/BookBorrower";
+import DataInTable from "./Components/DataInTable";
+import ReturnBooks from "./Components/ReturnBooks";
+import ApproveReturns from "./Components/ApproveReturns";
 function App() {
   const [{ user }, dispatch] = useStateValue();
   useEffect(() => {
@@ -69,6 +72,13 @@ function App() {
           <Route exact path="/fe/bor">
             <BookBorrower />
           </Route>
+          <Route exact path="/fe/return">
+            <ReturnBooks />
+          </Route>
+          <Route exact path="/fe/approvereturn">
+            <ApproveReturns />
+          </Route>
+
           <Route exact path="/fe/matDemo">
             <MaterialDemo />
           </Route>

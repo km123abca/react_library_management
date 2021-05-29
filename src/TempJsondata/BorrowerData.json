@@ -1,0 +1,8 @@
+[
+  {
+    "books": [{ "n_returned": 0, "id": "8E6FHpWSQMCoFShHCBEA", "n": 2 }],
+    "user": "kitchu@localhost.com",
+    "returnedAll": false,
+    "timestamp": "10-5-2021"
+  }
+]

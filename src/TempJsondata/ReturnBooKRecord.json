@@ -1,0 +1,11 @@
+{
+  "timestamp": { "seconds": 1621515049, "nanoseconds": 744000000 },
+  "books": [
+    {
+      "checkoutID": "eUtPwBaPR1FFOme51VT4",
+      "id": "9iH1681B4benLu8JYrhx",
+      "n": 1
+    }
+  ],
+  "user": "johnykane@aol.com"
+}
