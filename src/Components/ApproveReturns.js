@@ -19,6 +19,7 @@ function ApproveReturns() {
   return (
     <div>
       <Homepage />
+      {bookReturns.length == 0 ? <h1>No pending approval requests</h1> : null}
       {bookReturns.map((x) => (
         <div style={{ marginTop: "10px" }}>
           <div className="offset-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 font-weight-bold">

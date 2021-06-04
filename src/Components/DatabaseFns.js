@@ -254,6 +254,28 @@ const updateBookCopiesInDBBulk = (updatedBooks) => {
     // console.log("bookid:" + x.bid + " updated numcopies:" + x.n);
   });
 };
+const addMsgToDB = (msg, user, bookId) => {
+  db.collection("forumMessages").add({
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    msgContent: msg,
+    user: user,
+    bookId: bookId,
+  });
+};
+const getAllForumMessages = (setMessages) => {
+  db.collection("forumMessages")
+    .orderBy("timestamp", "desc")
+    .onSnapshot((snapshot) =>
+      setMessages(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          message: doc.data().msgContent,
+          username: doc.data().user,
+          bookId: doc.data().bookId,
+        }))
+      )
+    );
+};
 
 export {
   RetrieveData,
@@ -269,4 +291,6 @@ export {
   GetArrayOfBooksFromUserBookReturnTable,
   GetEntireBookReturnTable,
   ApproveReturns,
+  addMsgToDB,
+  getAllForumMessages,
 };

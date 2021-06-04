@@ -134,6 +134,11 @@ function ReturnBooks() {
         closeModalFn={closeModalFn}
         bodyContent={modalMsg}
       />
+      {bookLenderData.length == 0 ? (
+        <h1 style={{ width: "100%", textAlign: "center" }}>
+          No Books to Return
+        </h1>
+      ) : null}
       {bookLenderData.map((x) =>
         x.books.map((y, ind) => (
           <BookReturned

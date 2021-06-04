@@ -5,6 +5,7 @@ import Book from "./Book";
 import Homepage from "./Homepage";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import Forum from "./Forum";
 function DetailsOfABook() {
   let location = useLocation();
   const [indivBook, setIndivBook] = useState({});
@@ -49,6 +50,7 @@ function DetailsOfABook() {
           </Link>
         </Button>
       </div>
+      <Forum bookId={indivBook.id} />
     </div>
   );
 }
