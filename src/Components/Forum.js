@@ -27,28 +27,36 @@ const useStyles = makeStyles((theme) => ({
 function Forum({ bookId }) {
   const classes = useStyles();
   const [ef1, setEf1] = useState(true);
-  // const [bookIdx, setBookId] = useState(bookId);
+  const [bookIdx, setBookId] = useState(bookId);
   const [{ user }] = useStateValue();
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([
-    { username: "Soya", message: "Hello", id: 1 },
-    { username: "johnykane@aol.com", message: "Hello", id: 1 },
+    { username: "Failed again", message: "Hello", id: 1 },
+    { username: "Failed", message: "Hello", id: 2 },
   ]);
   const sendMessage = (e) => {
     e.preventDefault();
     addMsgToDB(input, user.email, bookId);
-    alert("done");
+    setInput("");
   };
 
   useEffect(() => {
-    if (ef1) getAllForumMessages(setMessages);
+    if (ef1) getAllForumMessages(setMessages, bookId);
     return () => {
       setEf1(false);
     };
   }, []);
   return (
-    <div style={{ textAlign: "center", backgroundColor: "#d5f3eb" }}>
-      <h1 className="mx-auto">Forum</h1>
+    <div
+      style={{
+        marginTop: "30px",
+        textAlign: "center",
+        backgroundColor: "#d5f3eb",
+      }}
+    >
+      <h1 className="mx-auto" style={{ fontWeight: "bold" }}>
+        Reviews and suggestions
+      </h1>
       <div style={{ textAlign: "center" }} className="row">
         <form
           className="offset-lg-2 col-lg-6 col-md-8 col-sm-12"

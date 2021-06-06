@@ -262,19 +262,22 @@ const addMsgToDB = (msg, user, bookId) => {
     bookId: bookId,
   });
 };
-const getAllForumMessages = (setMessages) => {
-  db.collection("forumMessages")
-    .orderBy("timestamp", "desc")
-    .onSnapshot((snapshot) =>
-      setMessages(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          message: doc.data().msgContent,
-          username: doc.data().user,
-          bookId: doc.data().bookId,
-        }))
-      )
-    );
+const getAllForumMessages = (setMessages, idx) => {
+  let query = db.collection("forumMessages");
+  if (!idx) idx = "123";
+  query = query.where("bookId", "==", idx);
+  query = query.orderBy("timestamp", "desc");
+  query.onSnapshot((snapshot) =>
+    setMessages(
+      snapshot.docs.map((doc) => ({
+        id: doc.id,
+        message: doc.data().msgContent,
+        username: doc.data().user,
+        bookId: doc.data().bookId,
+        timestamp: doc.data().timestamp,
+      }))
+    )
+  );
 };
 
 export {

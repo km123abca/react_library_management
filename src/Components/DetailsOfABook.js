@@ -50,7 +50,7 @@ function DetailsOfABook() {
           </Link>
         </Button>
       </div>
-      <Forum bookId={indivBook.id} />
+      <Forum bookId={bid} />
     </div>
   );
 }
