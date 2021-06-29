@@ -33,6 +33,7 @@ function Register() {
   const [pword, setPword] = useState("");
   const [pword2, setPword2] = useState("");
   const [idnum, setIdnum] = useState("");
+  const [name, setName] = useState("");
 
   //MODAL CONTROL FUNCTIONS STARTS
   const [modalOpen, setModalOpen] = useState(false);
@@ -54,11 +55,14 @@ function Register() {
         "Your ID number is not valid it should be like 1234-3433-4444-5432"
       );
       setModalOpen(true);
+    } else if (!name.match(/^[A-Za-z][a-z]+$/)) {
+      setModalMsg("Your Name should only have alphabets");
+      setModalOpen(true);
     } else {
       auth
         .createUserWithEmailAndPassword(email, pword)
         .then((auth) => {
-          AddNewMemberDetails({ email, idnum });
+          AddNewMemberDetails({ email, idnum, name });
           history.push("/fe");
         })
         .catch((e) => {
@@ -98,6 +102,26 @@ function Register() {
                   placeholder="Your Email here"
                   onChange={(event) => {
                     setEmail(event.target.value);
+                  }}
+                />
+              </FormControl>
+            </div>
+            <div className="col-12" style={{ marginBottom: "20px" }}>
+              <FormControl>
+                {/* <InputLabel>Email</InputLabel> */}
+                <TextField
+                  inputProps={{
+                    autocomplete: "new-password",
+                    form: {
+                      autocomplete: "off",
+                    },
+                  }}
+                  className={classes.textField}
+                  value={name}
+                  type="text"
+                  placeholder="Your Name here"
+                  onChange={(event) => {
+                    setName(event.target.value);
                   }}
                 />
               </FormControl>

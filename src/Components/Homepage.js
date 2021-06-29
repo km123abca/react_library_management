@@ -79,7 +79,7 @@ function Homepage() {
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2" className="text-dark">
                 <Link
-                  to={user ? "/fe/all" : "/fe/register"}
+                  to={user ? "/fe/mypage" : "/fe/register"}
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   {" "}

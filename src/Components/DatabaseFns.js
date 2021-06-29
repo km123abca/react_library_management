@@ -280,6 +280,24 @@ const getAllForumMessages = (setMessages, idx) => {
   );
 };
 
+const getAllUserDetails = (setUserDets, useremail) => {
+  db.collection("MemberInfo")
+    .where("email", "==", useremail)
+    .onSnapshot((snapshot) => {
+      if (snapshot.size == 0) setUserDets({ id: false });
+      else {
+        let doc = snapshot.docs[0];
+        setUserDets({
+          id: doc.id,
+          email: doc.data().email,
+          idnum: doc.data().idnum,
+          name: doc.data().name,
+          timestamp: doc.data().timestamp,
+        });
+      }
+    });
+};
+
 export {
   RetrieveData,
   RetrieveABook,
@@ -296,4 +314,5 @@ export {
   ApproveReturns,
   addMsgToDB,
   getAllForumMessages,
+  getAllUserDetails,
 };

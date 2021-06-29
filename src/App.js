@@ -18,6 +18,8 @@ import BookBorrower from "./Components/BookBorrower";
 import DataInTable from "./Components/DataInTable";
 import ReturnBooks from "./Components/ReturnBooks";
 import ApproveReturns from "./Components/ApproveReturns";
+import UserAccount from "./Components/UserAccount";
+import Landing from "./Components/Landing";
 function App() {
   const [{ user }, dispatch] = useStateValue();
   useEffect(() => {
@@ -46,7 +48,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/fe">
-            <Homepage />
+            <Landing />
           </Route>
           <Route exact path="/fe/all">
             <Allbooks />
@@ -77,6 +79,9 @@ function App() {
           </Route>
           <Route exact path="/fe/approvereturn">
             <ApproveReturns />
+          </Route>
+          <Route exact path="/fe/mypage">
+            <UserAccount />
           </Route>
 
           <Route exact path="/fe/matDemo">
