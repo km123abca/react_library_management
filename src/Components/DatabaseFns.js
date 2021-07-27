@@ -152,6 +152,32 @@ const GetDataFromUserBookReturnTable = (
     });
 };
 
+const GetAllBooksBorrowedSoFarWithEmail = (useremail, setBorrowedBooks) => {
+  db.collection("BorrowedBooks")
+    .where("user", "==", useremail)
+    .onSnapshot((snapshot) => {
+      if (snapshot.size == 0) setBorrowedBooks([]);
+      else {
+        let borrowedBooks = [];
+        snapshot.docs.map((doc) => {
+          let datex = null;
+          if (doc.data().timestamp)
+            datex = convertTStampToDate(doc.data().timestamp.seconds);
+          else datex = new Date();
+
+          doc.data().books.map((book) => {
+            let bid = book.id;
+            let ntaken = book.n;
+            let nreturned = book.n_returned;
+
+            borrowedBooks.push({ bid, ntaken, nreturned, datex });
+          });
+        });
+        setBorrowedBooks(borrowedBooks);
+      }
+    });
+};
+
 const GetArrayOfBooksFromUserBookReturnTable = (
   useremail,
   setBooksArrayForReturn,
@@ -212,8 +238,8 @@ const GetBookLenderInfoSingleUser = (setBookLenderData, user) => {
 const convertTStampToDate = (ts) => {
   let tStamp = new Date(ts * 1000).toLocaleDateString();
   tStamp = [
-    tStamp.split("/")[1],
     tStamp.split("/")[0],
+    tStamp.split("/")[1],
     tStamp.split("/")[2],
   ].join("-");
   return tStamp;
@@ -315,4 +341,5 @@ export {
   addMsgToDB,
   getAllForumMessages,
   getAllUserDetails,
+  GetAllBooksBorrowedSoFarWithEmail,
 };
